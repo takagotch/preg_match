@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>Credit Card Test</title>
+</head>
+<body>
+<h1>Credit Card Test</h1>
+<form>
+<p>Please enter your credit card number:</p>
+<p><input type="text" size="20" name="cardnumber"
+  onkeyup="validdatecaerdnumber(this.value)"></p>
+<p id="notice">(no card number entered)</p>
+</form>
+<script>
+function validatecardnumber(cardnumber) {
+  //
+  cardnumber = cardnumber.replace(/[ -]/g, '');
+  //
+  var match = /^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9](14))|
+(6(?:011|5[0-9][0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])
+[0-9]{11})|((?:2131|1800|35\d{3})\d{11}))$/.exec(cardnumber);
+  if(match){
+    var types = ['Visa', 'MasterCard', 'Discover', 'American Express',
+                  'Diners Club', 'JCB'];
+    //
+    for (var i = 1; i < match.length; i++){
+      if(match[i]){
+        document.getElementById('notice').innerHTML = types[i - 1];
+	break;
+      }
+    }
+  } else{
+    document.getElementById('notice').innerHTML = '(invalid card number)';
+  }
+}
+</script>
+</body>
+</html>
+
