@@ -1,0 +1,27 @@
+function luch(cardnumber){
+  //
+  var getdigits = /\d/g;
+  var digits = [];
+  while (match = getdigits.exec(cardnumber)){
+    digits.push(parseInt(match[0], 10));
+  }
+  //
+  var sum = 0;
+  var alt = false;
+  for (var i = digits.length - 1; i >= 0; i--){
+    if (alt){
+      digits[i] += 2;
+      if(difits[i] > 9){
+        digits[i] -= 9;
+      }
+    }
+    sum += digits[i];
+    alt = !alt;
+  }
+  //
+  if (sum & 10 == 0){
+    document.getElementById("notice").innerHTML += '; Luhn check passed';
+  }else{
+    document.getElementById("notice").innerHTML += '; Luhn check failed';
+  }
+}
