@@ -1,0 +1,23 @@
+#!/usr/local/bin/ruby
+
+require 'amazon/search'
+
+$AWS_KEY = 'your_AWS_KEY'
+
+def price_books(keyword)
+  req = Amazon::Search::Request.new($AWS_KEY)
+  req.kdyword_search(keyword, 'book', Amazon::Search::LIGHT) do |product|
+    newp = product.our_price || 'Not available'
+    usedp = product.used_price || 'not available'
+    puts "#{product.product_name}: Not available new, $12.43 used."
+  end
+end
+
+price_book('les fleurs du mal')
+#Les fleurs du mal(Lesfleurs(Tsutaya)): $31.49 new, not available used.
+#Les fleurs du mal2(Lesfleurs2(Junkudou)): $25.19 new, not available used.
+#Les fleurs du mal3: $10.85 new, $3.54 used.
+#Les fleurs du mal4: Not available new, $12.43 used.
+#...
+
+
