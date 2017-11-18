@@ -1,0 +1,15 @@
+git add .
+git commit -m "some"
+#git push -u origin master #conflict
+
+git chckout -b feature1 #git branch & checkout feature1 (master, feature1: HEAD)
+git fetch
+git merge origin/master 
+git add .
+git commit -m "Add feature1 origin/master"
+ 
+git chckout master #(master: HEAD, feature1)
+git merge --no-ff feature1
+git add .
+git commit -m "Fix conflict"
+git push -u origin master
