@@ -2,7 +2,7 @@ payment = Payment::AuthorizeNet
   .new(:pref => "#{RAILS_ROOT}/config/payment.yml")
 payment.amount = 20
 payment.card_number = 'bogus'
-apyment.submit rescue "That didn't work"
+payment.submit rescue "That didn't work"
 
 
 
