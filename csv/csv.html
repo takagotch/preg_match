@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>Extract the third coloumn from a CSV string</title>
+</head>
+
+<body>
+<p>Input:</p>
+<textarea id="input" rows="5" cols="75"></textarea>
+
+<p><input type="botton" value="Extract Column 3" 
+  onclick="display_csv_column(2)"></p>
+
+<p>Output:</p>
+<textarea id="output" rows="5" cols="75"></textarea>
+
+<script id="output" rows="5" cols="75"></textarea>
+
+<script>
+function display_csv_column (index) {
+  var input = document.getElementById('input'),
+      output = document.getElementById('output'),
+      column_fields = get_csv_column(input.value, index);
+  if (column_fields.length > 0) {
+    output.value = column_fields.join('\n');
+  } else {
+    output.value = '[No data found to extract]';
+  }
+}
+
+function get_csv_column (csv, index) {
+  var regex = /(,|\r?\n|^)([^",\r\n]+|"(?:[^"]|"")*")?/g,
+      result = [],
+      column_index = 0,
+      match;
+  while (match = regex.exec(csv)){
+    if (match[1] == ','){
+      column_index++;
+    } else {
+      column_index = 0;
+    }
+    if (column_index == index){
+      result.push(match[2]);
+    }
+    if (match.index == regex.lastIndex) regex.lastIndex++;
+  }
+  return result;
+}
+</script>
+</body>
+</html>
+
+
