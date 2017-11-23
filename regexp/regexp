@@ -1,210 +1,191 @@
+//1
+^
+\(            #"("
+  ?           #0|1 times
+(             #( )
+  [0-9]       #0-9
+    {3}       #3 times
+)             #()
+\)            #")"
+  ?           #0|1 times
+[-. ]         #"-","."," "
+  ?           #0|1 times
+?             #"other"
+$
 
-/[$"'\n\d\\]/
-
-%r![$"'\n\d\\]!
-
-myregexp = /regexp pattern/
-myregexp = Regexp.new(userinput)
-
-myregexp = /regex pattern/mix
-myregexp = Regexp.new(userinput,
-  (Regexp::RXTENDED or Regexp::IGNORECASE or
-   Regexp::MULTILINE))
-
-
-f = open("test.txt", "r:utf-8")
-f = open("test.txt", "w:utf-8")
-f.set_encoding("utf-8")
-f.set_encoding("Windows-31J", "utf-8")
-str.force_encoding("Windows-31J")
-str.encoding("utf-8")
-# coding: utf-8
-ruby -e "print(Encoding.name_list)"
-require 'jcode'
-$KCODE = "u"
-require = 'kconv'
-print(str.tosjis)
-require 'nkf'
-print(NKF.nkf('-sxm0 --cp932', arg))
-
-/* =~ */
-if subject =~ /regex pattern/
-  #
-else
-  #
-end
-
-if /regex pattern/ =~ subject
-  #
-else
-  #
-end
-
-
-if subject =~ /\A regex pettern \Z/
-  #
-else
-  #
-end
-
-
-if subject =~ /\d+/
-  result = $&
-else
-  result = ""
-end
-
-matchobj = /\d+/.match(subject)
-if matchobj
-  result = matchobj[0]
-else
-  result = ""
-end
-
-
-if subject =~ /\d+/
-  matchstart = $~.begin(0)
-  matchlength = $~.end(0) ~ matchstart
-end
-
-matchobj = /\d+/.match(subject)/
-if matchobj
-  matchstart = matchobj.begin(0)
-  matchlength = match.obj.end(0) - matchstart
-end
-
-
-/* $~: $~[1] */
-if subject =~ %r!http://([a-z0-9.-]+)!
-  result = $1
-else
-  result = ""
-end
-
-matchobj = %r!http://([a-z0-9.-]+)!.match(subject)
-if matchobj
-  result = matchobj[1]
-else
-  result = ""
-end
-
-/* gsub(),scan() */
-result = subject.scan(/\d+/)
-
-result = []
-subject.gsub(/\d+/){ |s| result.push(s) }
-
+//2
+^
+\+             #"+"
+(?:            #(!
+  [0-9]    
+  \x20         #" " 
+    ?          #0|1 times
+)              #)!
+  (6,14)       #6=< x =<14 times
+[0-9]          #"0", "1", "2"....
+$
 
 //
-subject.scan(/\d+/){ |match|
-  #
-}
-subject.gsub(/\d+/){ |match|
-  #
-}
-
-
-subject.scan(/(a)(b)(c)/){|a,b,c|
-  #
-}
-
-subject.scan(/(a)(b)(c)/){|abc|
-  #
-}
-
-/*  */
-list = []
-subject.scan(/\d+/){|match|
-  list << match if (Integer(match) % 13 == 0)
-}
-
-
-#\d+(?=(?!<b>).)*</b>)
-list = []
-innerre = re.compile(r"\d+")
-for outermatch in re.finditer("(?s)<b>", subject):
-  list.extend(innerre.findall(outermatch.group(1)))
-
-list = []
-subject.scan(/<b>(.*?)<\/b>/m){|outergroups|
-  list +=outergroup[0].scan(/\d+/)
-}
-
-
-/* gsub(), gsub!() */
-result - subject.gsub(/before/, 'after')
-
-/* String.gsub() */
-result = subject.gsub(/{\w+}=(\w+)/, '\2=\1')
-
-result = subject.gsub(/(?<left>\w+)=(?<right>\w+)/, '\k<right>=\k<left>')
+^
+[A-Z0-9]        #A,a.....Z,z,0,....9
+  +             #>=1 times
+$
 
 //
-result = subject.gsub(/\d_/) {|match|
-  Integer(match.sub(/^0+/, '')) * 2
-}
-
-
-//
-innerre = /before/
-result = subject.gsub(/<b>.*?</\b>/){|match|
-  match.gsub{innerre, 'after'}
-}
-
+^
+[A-Z]           #A,a,B,b...Y,y,Z,z  , [ ] 
+  {1, 10}       #1=< x =<10 times   * { }
+$
 
 //
-result = ''
-while subject =~ /<[^<>]*>/
-  match = $&
-  textafter = $'
-  textbetween = $`.gsub(/"[^"]*)"/, '"\1"')
-  result += textbetween + match
-  subject = textafter
-end
-result += textafter.gsub(/"[^"]*"/, '"\1"')
-
-/* split() */
-result = subject.split(/<[^<>]*>/)
-
-
-//String.split()
-list = []
-listindex = 0
-subject.scan(/<[^<>]*>/) {|match|
-  list << subjct[lastindex..$~.begin(0)-1]
-  list << $&
-  listindex = $~.end(0)
-}
-list << subject[lastindex..subject.length()]
-
+^
+(?:
+  (?:
+    \r          #CR, 0x0D(ASCII)
+    \n          #LF, 0x0A(ASCII), <br\ >
+      ?         #1|0 times
+   |            #or
+   \n
+  )
+    ?           #0|1 times
+  [^\r\n]       #!CR, !LF 1
+    *           #>=0
+  )
+    {0,5}       #0-5 *1times,2times,3times,4times,5times
+$
 
 //
-lines = subject.split(/\r?\n/)
+^
+(?:
+  1
+ |
+  t(?:rue)?      #t|true
+ |
+ y(?:es)?        #y|yes
+ |
+ ok(?:ay)?       #ok|okay
+$
 
-re = /regexp pattern/
-lines.each {|line|
-  if line =~ re
-    #
-  else
-    #
-  end
-}
+//
+^
+(?:!000|666      #!000,!666
+(?:
+  [0-6]
+  [0-9]{2}       #[0-9]{2} two
+ |
+  7
+  (?:
+    [0-6]        #0,1,2,3,4,5,6
+    [0-9]        #0,1,2,3,4,5,6,7,8,9
+   |
+    7
+    [0-2]        #0,1,2
+  )
+)
+-
+(?:!00)          #!00
+[0-9]{2}         #0-9, 2times
+-
+(?:!0000)        # !0000
+[0-9]{4}         #0-9, 4times
+$
 
+//
+^
+(?:
+  ISBN            #"ISBN"
+  (?:-1[03])?     #-10|-13|
+  :?              #?=\ |: 
+  \
+)?                # |()
+(?=               #match start
+  [-0-9\ ]{17}$   #-0-9X" "$, -0-9 17times
+ |
+  [-0-9X\ ]{13}$  #-0-9X" "$, -0-9 13times
+ |
+  [0-9X]{10}$     #0-9X$, 0-9 10times
+)
+(?:
+  97[89]         #978|979
+  [-\ ]?         #-|-" "
+)?               #0|1times
+[0-9]{1,5}       #0-9, 1times|5times
+[-\ ]?           #-|-" "
+(?:
+  [0-9]+         #0-9, >=1 times
+  [-\ ]?         #-|-" "|
+){2}             #(), 2times
+[0-9X]           #0-9|X
+$
 
+//
+^
+[0-9]{5}          #0-9, 5times
+(?:
+  -               #"-"
+  [0-9]{4}        #0-9, 4times
+)
+  ?               #()0|1
+$
 
+//
+^
+(?:
+  Post\            #Post" "
+  (?:Office\ )?    #(Office|(Office" "
+ |
+  P[.\ ]?          #P|P.|" "
+  O\.?\            #O|O.|" "
+)?                 #()0|1
+Box
+\b                 #string""string
 
+//
+^                  
+(
+  .+?              #.|..|...|...., n>=1
+)
+\
+(
+  [^\s,]+          #"^",string,",", =>1, except " "
+)
+\
+(
+  ,?\              #", "|"  "
+  (?:        
+    [JS|r\.?       #Jr|Jr.|Sr|Sr.
+   |
+    III?           #II|III
+   |
+    IV             #"IV"
+  )
+)?                 #()0|1
+$
 
+//
+\b                 #srting""string
+reg                #"reg"
+(?:                #"("
+  ular\            #"ular "
+  expressions?     #expression|expressions
+ |                 
+  ex               #"ex"
+  (?:              #"("
+    ps?            #p|ps
+   |
+    e              #"e"
+    [sn]           #s,n
+  )                #")"
+    ?              #()0|1
+)                  
+\b                 #string""string
 
-
-
-
-
-
-
-
-
-
-
-
+//
+\b         #string""string
+(?:        #"("
+  cat      #"cat"
+  \b       #string""string
+)          #")"
+\w+        #word, =>1
 
 

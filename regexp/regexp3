@@ -1,0 +1,210 @@
+
+/[$"'\n\d\\]/
+
+%r![$"'\n\d\\]!
+
+myregexp = /regexp pattern/
+myregexp = Regexp.new(userinput)
+
+myregexp = /regex pattern/mix
+myregexp = Regexp.new(userinput,
+  (Regexp::RXTENDED or Regexp::IGNORECASE or
+   Regexp::MULTILINE))
+
+
+f = open("test.txt", "r:utf-8")
+f = open("test.txt", "w:utf-8")
+f.set_encoding("utf-8")
+f.set_encoding("Windows-31J", "utf-8")
+str.force_encoding("Windows-31J")
+str.encoding("utf-8")
+# coding: utf-8
+ruby -e "print(Encoding.name_list)"
+require 'jcode'
+$KCODE = "u"
+require = 'kconv'
+print(str.tosjis)
+require 'nkf'
+print(NKF.nkf('-sxm0 --cp932', arg))
+
+/* =~ */
+if subject =~ /regex pattern/
+  #
+else
+  #
+end
+
+if /regex pattern/ =~ subject
+  #
+else
+  #
+end
+
+
+if subject =~ /\A regex pettern \Z/
+  #
+else
+  #
+end
+
+
+if subject =~ /\d+/
+  result = $&
+else
+  result = ""
+end
+
+matchobj = /\d+/.match(subject)
+if matchobj
+  result = matchobj[0]
+else
+  result = ""
+end
+
+
+if subject =~ /\d+/
+  matchstart = $~.begin(0)
+  matchlength = $~.end(0) ~ matchstart
+end
+
+matchobj = /\d+/.match(subject)/
+if matchobj
+  matchstart = matchobj.begin(0)
+  matchlength = match.obj.end(0) - matchstart
+end
+
+
+/* $~: $~[1] */
+if subject =~ %r!http://([a-z0-9.-]+)!
+  result = $1
+else
+  result = ""
+end
+
+matchobj = %r!http://([a-z0-9.-]+)!.match(subject)
+if matchobj
+  result = matchobj[1]
+else
+  result = ""
+end
+
+/* gsub(),scan() */
+result = subject.scan(/\d+/)
+
+result = []
+subject.gsub(/\d+/){ |s| result.push(s) }
+
+
+//
+subject.scan(/\d+/){ |match|
+  #
+}
+subject.gsub(/\d+/){ |match|
+  #
+}
+
+
+subject.scan(/(a)(b)(c)/){|a,b,c|
+  #
+}
+
+subject.scan(/(a)(b)(c)/){|abc|
+  #
+}
+
+/*  */
+list = []
+subject.scan(/\d+/){|match|
+  list << match if (Integer(match) % 13 == 0)
+}
+
+
+#\d+(?=(?!<b>).)*</b>)
+list = []
+innerre = re.compile(r"\d+")
+for outermatch in re.finditer("(?s)<b>", subject):
+  list.extend(innerre.findall(outermatch.group(1)))
+
+list = []
+subject.scan(/<b>(.*?)<\/b>/m){|outergroups|
+  list +=outergroup[0].scan(/\d+/)
+}
+
+
+/* gsub(), gsub!() */
+result - subject.gsub(/before/, 'after')
+
+/* String.gsub() */
+result = subject.gsub(/{\w+}=(\w+)/, '\2=\1')
+
+result = subject.gsub(/(?<left>\w+)=(?<right>\w+)/, '\k<right>=\k<left>')
+
+//
+result = subject.gsub(/\d_/) {|match|
+  Integer(match.sub(/^0+/, '')) * 2
+}
+
+
+//
+innerre = /before/
+result = subject.gsub(/<b>.*?</\b>/){|match|
+  match.gsub{innerre, 'after'}
+}
+
+
+//
+result = ''
+while subject =~ /<[^<>]*>/
+  match = $&
+  textafter = $'
+  textbetween = $`.gsub(/"[^"]*)"/, '"\1"')
+  result += textbetween + match
+  subject = textafter
+end
+result += textafter.gsub(/"[^"]*"/, '"\1"')
+
+/* split() */
+result = subject.split(/<[^<>]*>/)
+
+
+//String.split()
+list = []
+listindex = 0
+subject.scan(/<[^<>]*>/) {|match|
+  list << subjct[lastindex..$~.begin(0)-1]
+  list << $&
+  listindex = $~.end(0)
+}
+list << subject[lastindex..subject.length()]
+
+
+//
+lines = subject.split(/\r?\n/)
+
+re = /regexp pattern/
+lines.each {|line|
+  if line =~ re
+    #
+  else
+    #
+  end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
