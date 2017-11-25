@@ -1,0 +1,108 @@
+#
+[..]
+[^..]
+&&
+a-z
+\w [a-zA-Z0-9_]
+\W [^a-zA-Z0-9_]
+\s [ \t\r\n\f]
+\S [^ \t\r\n\f]
+\d [0-9]
+\D [^0-9]
+\h [0-9a-fA-F]
+\H [^0-9a-fA-F]
+\p {property-name}
+\P {^property-name}
+[:alnum:] POSIX
+
+\R
+\X
+
+*
++
+?
+{n}
+{n,}
+{,m}
+{n,m}
+*?
++?
+??
+{n,}?
+{,m}?
+{n,m}?
+*+
+++
+?_
+
+(pat)
+\1,\2,
+\k<1>,\k<2>
+\k<-1>,\k<-2>
+\k'-1',\k<-2>,
+(?<name>pat) (?'name'pat)
+\k<name>
+\k'name'
+(?:pat)
+(?>pat)
+
+\g<name>
+\g'name'
+\g<n>  (n >= 1)
+\g'n'  (n >= 1)
+\g<0>  (n >= 1)
+\g<-n>  (n >= 1)
+\g'-n'  (n >= 1)
+\g<+n>  (n >= 1)
+\g'+n'  (n >= 1)
+\k<n+level>  (n >= 1)
+\k<n-level>  (n >= 1)
+\k'n+level'  (n >= 1)
+\k'n-level'   (n >= 1)
+\k'-n-level'   (n >= 1)
+\k'-n+level'   (n >= 1)
+\k<name+level>  (n >= 1)
+\k<name-level>  (n >= 1)
+\k'name+level'  (n >= 1)
+\k'name-level'  (n >= 1)
+
+pat1 | pat2
+
+^
+$
+\A
+\Z
+\z
+\b
+\B
+(?=pat)
+(?!pat)
+(<=pat)
+(?<!pat)
+\K
+
+(?(cond)pat) 
+(cond)truepat|falsepat)
+
+(?on:pat)
+(?on-off:pat)
+
+(?#comment here)
+
+$~
+$&
+$`
+$'
+$1
+$+
+
+
+
+
+
+
+
+
+
+
+
