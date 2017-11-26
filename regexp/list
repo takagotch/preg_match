@@ -284,10 +284,103 @@ cents   # => "67"
 %r{<b>.*<\b>}.match("<b>x</b>y<b>z<\b>") # => #<MatchData "<b>x</b>y<b>z</b>">
 %r{<b>.*?<\b>}.match("<b>x</b>y<b>z</b>") # => #<MatchData "<b>x</b>">
 
+#\R (?>\x0D\x0A|[\x0A-\x0D\x{85}\x{2028}\x{2029}])
+#\X (eXtended frapheme cluster)(?>\P{M}\p{M}*)
+/\X/.match("e\u{0308}") # => #<MatchData "ë">
+$&.codepoints # => [101, 776]
+/\w/.match("e\u{308}")  # => #<MatchData "e">
+$&.codepoints           # => [101]
 
+#[ ]
+/W[aeiou]rd/
+[^a-d]
+#[a-z[0-9]], [a-z0-9], &&
+/[a-z[0-9]]/.match("y") # => #<MatchData "y">
+/[a-z[0-9]]/.match("[") # => nil
+r = /[a-w&&[^c-g]e/     # => [a-w][^c-g]|[^c-g]e [abeh-w]
+r.match("b")            # => #<MatchData "b">
+r.match("c")            # => nil
+r.match("e")            # => #<MatchData "e">
+r.match("g")            # => nil
+r.match("h")            # => #<MatchData "h">
+r.match("w")            # => #<MatchData "w">
+r.match("z")            # => nil
+/*
+\w [a-zA-Z0-9]
+\W [^a-zA-Z0-9]
+\s [\t\r\n\f\v]
+\S [^\t\r\f\v]
+\d [0-9]
+\D [^0-9]
+\h [0-9a-fA-F]
+\H [^0-9a-fA-F]
+*/
+/\w+/.match("ABCdef") # => nil
+/\w+/.match("ABCdef") # => #<MatchData "ABCdef">
+/\s+/.match(" ")      # => nil
+/\S+/.match(" ")      # => #<MatchData " ">
+r = [\d&&[^47]]/      #^[4,7]
+r.match("3")          # => <MatchData "3">
+r.match("7")          # => nil
+/*
+\p{property-name}
+\p{^property-name}
+\P{property-name}
+*/
+/\p{Letter}+/.match(".|AaABc123") # => #<MatchData "AaABc">
+/*
+[:alpha:] 
+[:ascii:]
+[:blank:]
+[:cntrl:]
+[:digit:]
+[:graph:] #([[:^space:]]&& ^Control && ^Unassigned && ^Surrogate)
+[:lower:]
+[:print:] #([[:graph:]] | Space_Separator)
+[:punct:]
+[:space:]
+[:upper:]
+[:xdigit:]
+[:word:]
+*/
+/[[:alnum:]]+/.match("abAB121") # => #<MatchData "abAB121">
+/[[:graph:]]/.match("\u3000") # => nil #\u3000
+/[[:blank:]]/.match("\u3000") # => #<MatchData " ">
+/[[:alnum:]]&&[:^lower:]/.match("\aA") # => #<MatchData "A">
+/[[:print:]]/&&[:^lower:]/.match(" ")  # => #<MatcjData " ">
 
+# .
 
-
+/*
+\t
+\v
+\n
+\r
+\b
+\f
+\a
+\e
+\nnn
+\xHH
+\cx, \C-x
+\M-x
+\M-\C-x
+\uHHHH
+\u{HHHHHH HHHHHH ......}
+*/
+\s 0x20, 0x80
+\b
+place = "japan"
+/#{palce}/.match("Go to Japan") # => <Matchdata "Japan">
+number = "(\\d+)"
+operator = "(\\+|-|\\*|/)"
+/#{number}#{operator}#{number}/.match("43+291") # => #<MatchData "43+291" 1:"43" 2:"+" 3:"291">
+/[a-z]/
+/\Axyz\Z/\
+/a|b|c/
+( ) [ ] { } . ? + * | \
+/pat/
+%r{pat} #Regexp.new
 
 
 
