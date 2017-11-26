@@ -1,4 +1,7 @@
 #
+.
+
+#
 [..]
 [^..]
 &&
@@ -15,9 +18,11 @@ a-z
 \P {^property-name}
 [:alnum:] POSIX
 
+#
 \R
 \X
 
+#
 *
 +
 ?
@@ -35,6 +40,7 @@ a-z
 ++
 ?_
 
+#
 (pat)
 \1,\2,
 \k<1>,\k<2>
@@ -46,6 +52,7 @@ a-z
 (?:pat)
 (?>pat)
 
+#
 \g<name>
 \g'name'
 \g<n>  (n >= 1)
@@ -66,8 +73,10 @@ a-z
 \k'name+level'  (n >= 1)
 \k'name-level'  (n >= 1)
 
+#
 pat1 | pat2
 
+#
 ^
 $
 \A
@@ -81,14 +90,18 @@ $
 (?<!pat)
 \K
 
+#
 (?(cond)pat) 
 (cond)truepat|falsepat)
 
+#
 (?on:pat)
 (?on-off:pat)
 
+#
 (?#comment here)
 
+#
 $~
 $&
 $`
@@ -96,9 +109,58 @@ $'
 $1
 $+
 
+#(?#commet here)
+float_pat = /\A
+  \d+    #1 
+  (\.    #1.
+    \d+  #1.1
+  )?
+\z/x
+float_pat.match("3.14") #
+#\s, \p{Space}
+/x y/x.match("x y")
+/x\ y/x.match("x y")
 
 
+/*
+/pat/u UTF-8
+/pat/e EUC-JP
+/pat/s Windows-31J
+/pat/n ASCII-8bit
+*/
+#Regexp#encoding
+#-*- coding:utf-8 -*-
+/aiu/.encoding
+/abc/.encoding
+/abc/u.encoding
+#Regexp#fixed_encoding?
+#-*- coding:utf-8 -*-
+/aiu/.fixed_encoding?
+/abc/.fixed_encoding?
+/abc/e.fixed_encoding?
+/abc/ =~ "aiu"
+/abc/e =~ "aiu"
 
+/*
+/pat/i
+/pat/m .
+/pat/x 
+/pta/o #{}
+*/
+#(?on:pat), (?on-off:pat)
+/a(?i:b)c/.match("aBc")
+/a(?i:b)c/.match("abc")
+#(?on), (?on-off)
+/a(?i)bc/.match("aBc")
+/a(?i)bc/.match("aBC")
+#((?i))
+/a(?:(?i)bc)d/.match("aBCd")
+/a(?:(?i)bc)d/.match("aBCD")
+#Regexp.new
+Regexp.new("abc", Regexp::IGNORECASE)
+Regexp.new("abc", Regexp::MULTILINE)
+Regexp.new("abc", # Comment", Regexp::EXTENDED)
+Regexp.new("abc", Regexp::IGNORECASE | Regexp::MULTILINE)
 
 
 
