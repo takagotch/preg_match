@@ -161,6 +161,132 @@ Regexp.new("abc", Regexp::IGNORECASE)
 Regexp.new("abc", Regexp::MULTILINE)
 Regexp.new("abc", # Comment", Regexp::EXTENDED)
 Regexp.new("abc", Regexp::IGNORECASE | Regexp::MULTILINE)
+#(?(cond)pat) -> cond, (?(cond)truepat|falsepat) -> truepat/falsepat
+set var=val
+print var
+re = /\A(?:(set)|(print))\s+(\w+)(?(1))=(\d))\z/
+re.match("set x=32")           #
+re.match("print x")            #
+re.match("set y")              # => nil 
+
+/*
+(?=pat)
+(?!pat)
+(?<=pat)
+(?<!pat)
+\K /pat1\Kpat2/ /(?<=pat1)pat2/
+*/
+/(?<=<b>)\w+(?=<\/b>)/.match("Fortune favours the <b>bold</b>")
+/<b>\K\w+(?=<\/b>/.match("Fortune favours the <b>bold</b>"))</b>/
+
+/*
+^
+$
+\A
+\Z
+\z
+\b
+\B
+*/
+/real/.match("surrealist")       # => #<MatchData "real">
+/\Areal/,match("surrealist")     # => nil
+/\breal/.match("surrealist")     # => nil
+/foo\b/.match("auifoo")          # => #<MatchData "foo">
+/\bfoo\b/.match("auifoo%")       # => nil
+/\bfoo\b/e.match(" (foo) ".encode("EUC-JP"))  # => nil
+/\bfoo\b/.match(" (foo) ")                    # => <MatchData "foo">
+
+# |
+/\w(and|or)\w/.match("Feliformia")    # => #<MatchData "form" 1:"or">
+/\w(and|or)\w/.match("furandi")       # => #<MatchData "randi" 1:"and">
+/\w(and|or)\w/.match("dissemblance")  # => nil
+
+#\g<name>, \g'name'
+/\A(?<paren>\(\g<paren>*\))*\z/ =~ '(())' # => 0
+/*
+\k<n+level> (n >= 1)
+\k<n+level> (n >= 1)
+\k'n+level' (n >= 1)
+\k'n+level' (n >= 1)
+\k<-n+level> (n >= 1)
+\k<-n+level> (n >= 1)
+\k'n+level' (n >= 1)
+\k'n+level' (n >= 1)
+\k<name+level> 
+\k<name-lebel>
+\k'name+level'
+\k'name-level'
+*/
+/\A(?<a>|.|(?:(?<b>.)\g<a>\k<b+0>))\z/.match("rekxker") # => #<MatchData "relxler" a: "relxler" b:"k">
+r = Regexp.compile(<<'__REGEXP__'.strip, Regexp::EXTENDED)
+(?<element> \g<stag> \g<content>* \g<etag> ){0}
+(?<stag> < \g<name> \s* > ){0}
+(?<name> [a-zA-Z :]+ ){0}
+(?<content> [~<&]+ (\g<element> | [~<&]+)* ){0}
+(?<etag> </ \k<name+1> >){0}
+\g<element>
+__REGEXP__
+r.match('<foo>f<bar>bbb</bar>f</foo>').captures # => ["<foo>f<bar>bbb</bar>f</foo>", "<bar>", "bar", "f<bar>bbb</bar>f", "</foo>"]
+(?<name>a|\g<name>b) => err
+(?<name>a|b\g<name>c) => success
+#(?>pat)
+/".*"/.match('"Quote"')       # => #<MatchData "\"Quote\"">
+/"(?>.*)"/.match('"Quote"')   # => nil
+/"(?:(?>.*)|(.*))"/.match('"Quote"') # => #<MatchData "\"Quote\"" 1:"Quote">
+
+#()
+/[aeiou]\w{2}/.match("Caenorhabfitis elegans") # => #<MatchData "aen">
+/([aeiou]\w){2}/.match("Caenorhabites elegns") # => #<MatchData "enor" 1:"or">
+
+#(?:pat)
+/I(n)ves(ti)ga\2ons/.match("Investigations") # => #<MatchData "Incestigations 1:"n" 2:"ti">
+/I(?:n)ves(ti)ga\1ons/.match("Investigarions") # => #<MatchData "Investigations" 1:"ti">
+
+#$1, Regexp#match MatchData#[]
+#m = /[csh](..)[csh]\1 in/.match("The cat sat in the hat") # => #<MatchData "cat sat in" 1:"at">
+m[1] # => "at"
+#(?<name>pat), (?'name'pat) MatchData#[]
+m = /\$(?<dollars>\d+)\.(?<cents>\d+)/.match("$3.67") # => #<MatchData "$3.67" dollars:"3" cents:"67">
+m[:dollars] # => "3"
+m[:cents]   # => "67"
+#\k<name>,\k'name'
+/(?<vowel>[aiuou]).\k<vowel>.\k<vowel>\.match('ototomy') # => #<MatchData "ototo" vowel:"o">
+/\$(?<dollars>\d+)\.(?<cents>\d+)/ =~ "$3.67" # => 0
+dollars # => "3"
+cents   # => "67"
+/(.)(.)\k<-2>\k<-1>/.match("xyzyz") # => #<MatchData "yzyz" 1:"y" 2:"z">
+/*
+*+ # >= 0
+++ # >= 1
+?+ # 0|1
+*/
+/*
+*
++
+?
+{n}   # n times
+{n,}  # >= n times
+{,m}  # m >= times
+{n,m} # n =<,m >= times 
+*/
+"Hello".match(\[[:upper:]]+[[:lower:]]+{2}o/) # => #<Matchdata "Hello">
+/*
+*?
++?
+??
+{n,}?
+{,m}?
+{n,m}?
+*/
+#\d_
+/^.*(\d+)\./.match("Copyright 2017.") # => #<MatchData "Copyright 2017." 1:"3">
+/^.*?(\d+)\./.match("Copyright 2017.") # => #<Matchdata "Copyright 2017." 1:"2017">
+%r{<b>.*<\b>}.match("<b>x</b>y<b>z<\b>") # => #<MatchData "<b>x</b>y<b>z</b>">
+%r{<b>.*?<\b>}.match("<b>x</b>y<b>z</b>") # => #<MatchData "<b>x</b>">
+
+
+
+
 
 
 
