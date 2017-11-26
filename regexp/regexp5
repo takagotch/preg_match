@@ -13,6 +13,69 @@ Regexp,escape(str)
 &
 #," "
 
+\s+
+[ \t]+
+
+^\s+
+\s+$
+string.strip()
+string.replace(/^\s+|\s+$/g, '');
+string.replace(/^\s*([\s\S]*?)\s*$, '$1')
+string.replace(/^\s*([\s\S]*\S)?\s*$/, '$1')
+string.replace(/^\s((\S*(?:\s+\S+)*)\s*$/, '$1')
+
+^(?:(?:!\bninja\b).)*$
+
+^.*\bninja\b.*$
+^.*\b(one|two|three)\b.*$
+^(?=.*?\bone\b)(?=.*?\btwo\b)(?=.*?\bthree\b).+$
+
+^(.*)(?:(?:\r?\n|\r)\1)+$
+^([^\r\n]*)(?:\r?\n|\r)(?=.*^\1$)
+^(.*)(?:\r?\n|\r)(?=[\s\S]*^\1$)
+^([^\r\n]*)$(.*?)(?:(?:\r?\n|\r)\1$)+
+^(.*)$([\s\S]*?)(?:(?:\r?\n|\r)\1$)+
+\1\2
+
+\b([A-Z]+)\s+\1\b
+
+\b(?:word1\W+(?:\w+\W+){0,5}?word2|word2\W+(?:\w+\W+){0,5}?word1)\b
+
+\b(?:word1|(word2))\W+(?:\w+\W+){0,5}?(?(1)word1|word2)\b
+\b(?:(?<w1>word1)|(?<w2>word2))\W+(?:\w+\W+){0,5}?(?(w2)(?&w1)|(?&w2))\b
+\b(?:(?>word1()|word2()|word3()|(?>\1|\2|\3))\w+)\b\W*?)(3,8)\1\2\3
+\b(?:(?:word1()|word2()|word3()|(?:\1|\2|\3)\w+)\b\W+?)(3,8)\1\2\3
+\b(?:(?>word1()|word2()|word3()|word4()|(?>\1|\2|\3|\4)\w+)\b\W*?){4,9}\1\2\3\4
+\b(?:(?:word1()|word2()|word3()|word4()|(?:\1|\2|\3|\4)\w+)\b\W*?){4,9}\1\2\3\4
+\A(?=.*?\bword1\b)(?=.*?\bword2\b).*\Z
+^(?=[\s\S]*?\bword\b)(?=[\s\S]*?\bword2\b)[\s\S]*$
+
+\b\w+\b(?!\W+cat\b)
+\b\w+\b(?=\W+cat\b)
+
+(?<!\bcat)(?:\W+|^)(\w+)
+(?<=\bcat\W+)\b\w+
+(?<=\bcat)(?:\W+|^)(\w+)
+
+/*
+\b\b
+*/
+\bcolou?r\b    #color,colour
+\b[bcr]at\b    #bat,cat,rat
+\b\w*phobia\b  #phobia
+\bSte(?:ven?|phen)\b #Steve,Steven,Stephen
+\breg(?:ular expressions?|ex(?:ps?|e[sn])?)\b 
+#regular expressions,
+ regular expression,
+ regexps,
+ regexp,
+ regexen,
+ regex
+
+
+\b(?:one|two|three)\b
+
+\bcat\b
 
 
 
