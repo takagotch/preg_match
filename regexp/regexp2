@@ -1,5 +1,140 @@
+\`\`\&\'\'
 
+\b(\d{3})(\d{3})(\d{4})\b
+(\1) \2-\3
+\b(?<area>\d{3})(?<exchange>\d{3})(?<number>\d{4})\b
+\b(?'area'\d{3})(?'exchange'\d{3})(?'number'\d{4})\b
+(\k<area>) \k<exchange>-\k<number>
+(\k'area') \k'exchange'-\k'number'
+(\1) \2-\3
 
+http:\S+
+<a href="\0">\0</a>
+<a href="\&">\&</a>
 
+$%\*$1\\1
 
+\d{4}
+~
+\d{2}
+~
+\d{2}
 
+\b(?:(?:(one)|(two)|(three))(?:,|\b)){3,}
+
+(?<=<b>)\w+(?=</b>)
+(?=\p{Thai})\p{N}
+(?=(\d+))\w+\1
+(<b>)(\w+)(?=<\b>)
+
+<html>(?>.*?<head>)(?>.*?<title>)(?>.*?</title>)
+(?>.*?</head>)(?>.*?<body[^>|*>]*>)(?>.*?</body>).*?</html>
+
+/*ERR
+
+<html>   .*?<head>    .*?<title>    .*?</title>
+   .*?</head>    .*?<body[^>|*>]*>    .*?</body> .*?</html>
+*/
+
+\b\d++\b
+\b(?>\d+)\b
+
+<p>.*?</p>
+<p>.*</p>
+
+\b\d{100}\b
+\b[a-f0-9]{1,8}\b
+\b[a-f0-9]{1,8}h?\b
+\d*\.\d+(e\d+)?
+
+\b(?<year>\d\d\d\d)-(?<month>\d\d)-(?<day>\d\d)\b
+\b(?'year'\d\d\d\d)-(?'month'\d\d)-(?'day'\d\d)\b
+\b\d\d(?<magic>\d\d)-\k<magic>-\k<magic>\b
+\b\d\d(?'magic'\d\d)-\k'magic'-\k'magic'\b
+
+\b\d\d(\d\d)-\1-\1\b
+
+\b(Mary|Jane|Sue)\b
+\b(\d\d\d\d)-(\d\d)-(\d\d)\b
+\b(?:Mary|Jane|Sue)\b
+\b(?i:Mary|Jane|Sue)\b
+\sensitive(?i:caseless)sensitive
+
+Mary|Jane|Sue
+
+[.-.]          #hiragana
+[\u3040-\u309F]
+\p{Hiragana}
+
+[.-.]           #kana
+[\u30A0-\u30FF]
+\p{katakana}
+
+[.-.]
+[\uFF61-\uFF9F]
+[\x{FF61}-\x{FF9F}]
+
+[.-.]
+[\x{4E00}-\x{9FFF}]
+\p(CJK_Unified_Ideographs)
+
+[.-.]
+[\x{3000}-\x{303F}]
+\p(CJK_Symbols_and_Punctuation)
+
+\u2122
+\u{2122}
+\p{Sc}
+\p{Greek}
+\P{M}\\p{M}*
+#Unicode...<\p{L1}>
+....................;
+[\p{pi}\p{pf}\u{2122}]
+[\u1F00-\u1FFF]
+[\u{1F00}-\u{1FFF}]
+[\u0370-\u0373\.....
+....................
+\u1FFD-\u1FFE\u2126]
+->
+[\x{0370}-\x{0373}\.
+....................
+-\x{1D244}\x{1D245}]
+
+/* \b\b #word, \A\Z #text, ^$ #line*/
+\bcat\b
+\Bcat\B
+
+\Aalpha
+omega\Z
+
+^begin
+end$
+
+'.'
+'[\s\S]'
+(?m)'.'
+
+c[ae]1[ae]nd[ae]r # calandar,calander,...
+[a-fA-F0-9]       #
+[^a-fA-F0-9]      # ! : [^ ]
+[a-fA-F\d]
+(?i)[A-F0-9]
+(?i)[^A-F0-9]     # ! : [^ ]
+
+\a\e\f\n\r\t\v
+\x07\x1B\f\n\r\t\v
+\cG\x1B\cL\cJ\cM\cI\cK
+/*
+<\a>  0x07
+<\e>  0x1B
+<\f>  0x0C
+<\n>  0x0A
+<\r>  0x0D
+<\t>  0x09
+<\v>  0x0B
+*/
+\cG\x1B\cL\cJ\cM\cI\cK
+\x07\x1B\x0C\x0A\x0D\x09\x0B
+
+ascii
+(?i)ascii
