@@ -101,12 +101,12 @@ $
 #
 (?#comment here)
 
-#
+#$~
 $~
 $&
 $`
 $'
-$1
+$1                    #~[1]
 $+
 
 #(?#commet here)
@@ -142,7 +142,7 @@ float_pat.match("3.14") #
 /abc/e =~ "aiu"
 
 /*
-/pat/i
+/pat/i     #I,i
 /pat/m .
 /pat/x 
 /pta/o #{}
