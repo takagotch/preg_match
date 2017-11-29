@@ -19,11 +19,12 @@
 </([A-Z][-:A-Z0-9]*)\s*>
 <([_:A-Z][-.:\w]*)(?:\s+[_:A-Z][-.:\w]*\s*=\s*(?:"[^"]*"|'[^']*'))*\s*/?>
 </([_:A-Z][-.:\w]*)\s*>
-<!--.*?--\s>|<(script|style|textarea|xmp)\b(?:[^>"']|"[^"]*"|'[^']*')*?(?:/>|>.*?</\1\s>)
-<>
-<>
-<>
-<>
+<!--.*?--\s>|<(script|style|textarea|xmp)\b(?:[^>"']|"[^"]*"|'[^']*')*?(?:/>|>.*?</\1\s*>)
+<!--[\s\S]*?--\s*>|<(script|style|textarea|xmp)\b(?:[^>"']|"[^"]*"|'[^']*')*?(?:/>|>[\s\S]*?</\1\s*>)
+<!--.*?--\s*><!\[CDATA\[.*?]]>|<!DOCTYPE\s(?:[^<>"']|"[^"]*"|'[^']*'|<!(?:[^>"']|"[^"]*"|'[^']*')*>)*>
+<!--[\s\S]*?--\s*><!\[CDATA\[[\S\s]*?]>|<!DOCTYPE\s(?:[^<>"']|"[^"]*"|'[^']*'|<!(?:[^>"']|"[^"]"|'[^']')*>)*>
+</?(a|abbr|acronym|address|applet|area|b|base|basefont|bdo|big|blockquote|body|br|button|caption|center|cite|code|col|colgroup|dd|del|dfn|dir|div|dl|dt|em|fieldset|font|form|frame|frameset|h1|h2|h3|h4|h5|h6|head|hr|html|noframe|img|input|ins|isindex|kbd|label|legend|li|link|map|menu|meta|select|small|span|strike|strong|style|sub|sup|table|tbody|td|textarea|tfont|th|thead|title|tr|tt|u|ul|var)\b(?:[^>"']|"[^"]*"|'[^']*')*>
+</?(a(?:bbr|cronym|ddress|pplet|rea)?(?:ase(?:font)?|do|ig|lockquote|ody|r|utton)?|c(?:aption|enter|ite|o(?:de|l(?:group)?))|d(?:[dlt]|el|fn|i[rv])|em|f(?:ieldset|o(?:nt|rm)|rame(?:set)?|h(?:[1-6r]|ead|tml)|i(?:frame|mg|n(?:put|s)|sindex)?|kdb|1(?:abel|egend|i(?:nk)?|m(?:ap|e(?:nu|ta))|no(?:frames|script)|o(?:bject|1|p(?:tgroup|tion))|p(?:aram|re)?|q|s(?:amp|cript|mall|pan|t(?:rike|rong|yle)|u[bp])?|t(?:able|body|[dhrt]|extarea|foot|head|itle)|ul?|var)\b(?:[^>"']|"[^"]*"|'[^']*')*>
 
 
 //
